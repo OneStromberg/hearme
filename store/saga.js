@@ -12,14 +12,14 @@ function* measurmentRequest({ payload }){
 
 const delay = (value) => new Promise(resolve => setTimeout(resolve, value));
 
-function* error(e){
+export function* error(e){
   yield put(Action(actionTypes.SHOW_POPUP, true));
   yield put(Action(actionTypes.RUNTIME_ERROR, e));
   yield delay(2000);
   yield put(Action(actionTypes.SHOW_POPUP, false));
 }
 
-function* runTest({ payload }){
+export function* runTest({ payload }){
   yield put(Action(actionTypes.RUNTIME_ERROR, null));
   if (payload) {
     const { testName, value } = payload;
@@ -42,7 +42,7 @@ function* runTest({ payload }){
   yield put(Action(actionTypes.MEASURMENT_RESPONSE, { value: null }));
 }
 
-function* initialData(){
+export function* initialData(){
   yield put(Action(actionTypes.SHOW_POPUP, true));
   try {
     const response = yield call(fetch, DATA_URL);
@@ -54,7 +54,7 @@ function* initialData(){
   yield put(Action(actionTypes.SHOW_POPUP, false));
 }
 
-function* init(){
+export function* init(){
   yield takeEvery(actionTypes.RUN_TEST, runTest);
   yield fork(initialData);
 }
