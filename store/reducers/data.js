@@ -1,5 +1,6 @@
 //@flow
 import { actionTypes } from './../../constants';
+import { buildMapFromArrayData } from './../../utils';
 
 type State = {
   bloodTestConfig: any
@@ -13,11 +14,8 @@ export default (state:State = initialState, action: any) => {
   const { type, payload } = action;
   switch (type) {
     case actionTypes.MEASURMENT_DATA:
-      if (payload) {
-        return { ...state, bloodTestConfig: payload.bloodTestConfig.reduce((acc, item)=> {
-          acc[item.name.toLowerCase()] = item.threshold;
-          return acc;
-        }, {})}
+      if (payload && payload.bloodTestConfig) {
+        return { ...state, bloodTestConfig: buildMapFromArrayData(payload.bloodTestConfig) }
       }
       return state;
     default:
