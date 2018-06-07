@@ -1,10 +1,19 @@
-import { put, take } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
-import { error } from './../store/saga';
+import dataReducer, { initialState } from './../store/reducers/data'
+import Action from './../actions/Action';
+import { actionTypes } from './../constants';
 
-test('saga', assert => {
-  const gen = cloneableGenerator(error)();
-  console.log(gen.next()); // DO_STUFF
-  gen.next(); // DO_STUFF
-  gen.next(); // CHOOSE_NUMBER
+test('Action', () => {
+  expect(Action(actionTypes.SHOW_POPUP)).toEqual({
+    type: actionTypes.SHOW_POPUP,
+    payload: null
+  });
+  expect(Action(actionTypes.SHOW_POPUP, true)).toEqual({
+    type: actionTypes.SHOW_POPUP,
+    payload: true
+  });
+});
+
+test('data reducer', () => {
+  expect(dataReducer(undefined, {})).toEqual(initialState);
+  expect(dataReducer(initialState, Action(actionTypes.MEASURMENT_DATA))).toEqual(initialState);
 });
