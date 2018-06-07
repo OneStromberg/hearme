@@ -10,7 +10,6 @@ To run Application - in your terminal run next commands:
 - git clone git@github.com:OneStromberg/heartme.git
 - cd heartme
 - npm i
-- react-native link
 - npm test
 - react-native run-ios
 
