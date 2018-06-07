@@ -13,8 +13,7 @@ import store from './store';
 import Root from './components';
 import styles from './styles';
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component<any> {
   render() {
     return (
       <View style={styles.container}>

@@ -4,6 +4,8 @@ import Action from '../actions/Action';
 import { storetTestData } from './reducers/data';
 import { actionTypes } from './../constants';
 
+const DATA_URL = 'https://s3.amazonaws.com/s3.helloheart.home.assignment/bloodTestConfig.json';
+
 function* measurmentRequest({ payload }){
   put(Action(actionTypes.MEASURMENT_RESPONSE));
 }
@@ -43,7 +45,7 @@ function* runTest({ payload }){
 function* initialData(){
   yield put(Action(actionTypes.SHOW_POPUP, true));
   try {
-    const response = yield call(fetch, 'https://s3.amazonaws.com/s3.helloheart.home.assignment/bloodTestConfig.json');
+    const response = yield call(fetch, DATA_URL);
     const data = yield response.json();
     yield put(Action(actionTypes.MEASURMENT_DATA, data));
   } catch(e) {
